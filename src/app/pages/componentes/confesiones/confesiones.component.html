@@ -1,0 +1,105 @@
+<section>
+  <p class="text-center">
+    <span class="relative">
+      <span class="block absolute -skew-y-3 bg-pink-500 h-24 -inset-8"></span>
+      <span
+        class="font-sans text-4xl text-white text-center font-semibold italic relative"
+      >
+        CONFESIONES
+      </span>
+    </span>
+  </p>
+
+  <div
+    class="container max-w-screen-md bg-slate-200 mx-auto my-20 p-8 rounded-lg"
+    *ngFor="let confesion of confesiones"
+  >
+    <div>
+      <h2 class="font-sans font-bold text-3xl mb-4 text-primary1">
+        {{ confesion.titulo | titlecase }}
+        <span
+          class="block font-thin italic font-serif ml-4 text-gray-600 text-lg md:inline"
+          >{{ confesion.createdAt | date }}</span
+        >
+      </h2>
+      <p class="p-4 bg-white mb-4 rounded-md">{{ confesion.descripcion }}</p>
+      <div class="flex space-x-4 mb-8">
+        <button
+          class="text-xl disabled:text-gray-400"
+          (click)="darMeGusta(confesion.id)"
+        >
+          <i class="fas fa-heart"></i> Me gusta
+        </button>
+
+        <button class="text-xl">
+          <i class="fas fa-flag" (click)="openModal(template)"></i> Reportar
+        </button>
+      </div>
+      <h2 class="font-sans font-bold text-2xl text-primary1">
+        Comentarios
+      </h2>
+      <app-comentarios [id]="confesion.id" />
+      <hr />
+      <form
+        class="flex flex-col"
+        [formGroup]="comentarFormulario"
+        (ngSubmit)="comentar(confesion.id)"
+      >
+        <label for="comentar" class="mb-4 text-xl">Comenta</label>
+        <textarea
+          name="comentar"
+          id="comentar"
+          cols="30"
+          rows="5"
+          class="p-4 bg-white mb-4 rounded-md"
+          formControlName="comentario"
+        ></textarea>
+        <div class="flex justify-end">
+          <button
+            [disabled]="comentarFormulario.invalid"
+            class="py-2 px-4 bg-primary4 text-white font-bold rounded-md disabled:bg-slate-500"
+            type="submit"
+          >
+            Comentar
+          </button>
+        </div>
+      </form>
+    </div>
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left font-serif">Reportar</h4>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="formulario"
+          (ngSubmit)="reportar(confesion.id)"
+          class="flex flex-col space-y-2"
+        >
+          <label for="motivo">Motivo</label>
+          <input
+            type="text"
+            id="motivo"
+            formControlName="motivo"
+            class="bg-slate-200 p-2"
+            placeholder="Debes escribir algo para poder reportar esta publicacion."
+          />
+          <button
+            type="submit"
+            class="p-2 bg-primary2 text-white rounded-md my-2"
+            [disabled]="formulario.invalid"
+            (click)="modalRef?.hide()"
+          >
+            Enviar reporte
+          </button>
+          <button
+            type="button"
+            class="p-2 bg-slate-600 text-white rounded-md my-2"
+            (click)="modalRef?.hide()"
+          >
+            Cerrar
+          </button>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</section>

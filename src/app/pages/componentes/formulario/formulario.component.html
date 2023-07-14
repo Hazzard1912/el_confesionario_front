@@ -1,0 +1,45 @@
+<div class="space-y-4 p-4 max-w-screen-md mx-auto bg-rose-200 rounded-lg">
+  <div>
+    <H2 class="text-xl font-sans font-bold lg:text-3xl">CONFIESATE!</H2>
+    <p class="text-slate-600">Tienes algo que contar?</p>
+  </div>
+  <form
+    [formGroup]="formulario"
+    (ngSubmit)="onSubmit()"
+    class="space-y-4 flex flex-col p-2"
+  >
+    <label for="titulo" class="mr-2">TITULO</label>
+    <input
+      type="text"
+      id="titulo"
+      class="rounded-md bg-slate-200 p-2 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+      formControlName="titulo"
+    />
+    <label for="descripcion" class="block">DESCRIPCION</label>
+    <textarea
+      name="descripcion"
+      id="descripcion"
+      cols="30"
+      rows="10"
+      class="bg-slate-200 p-2 rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none"
+      placeholder="Escribe tu historia..."
+      formControlName="descripcion"
+    ></textarea>
+    <label for="etiqueta">ETIQUETA</label>
+    <input
+      type="text"
+      id="etiqueta"
+      class="bg-slate-200 p-2 rounded-md focus:ring-2 focus:ring-teal-500 focus:outline-none"
+      formControlName="etiqueta"
+    />
+    <div class="flex justify-end">
+      <button
+        class="py-4 px-6 bg-primary2 text-primary3 rounded-md shadow-lg disabled:bg-slate-500 "
+        type="submit"
+        [disabled]="formulario.invalid"
+      >
+        PUBLICAR
+      </button>
+    </div>
+  </form>
+</div>

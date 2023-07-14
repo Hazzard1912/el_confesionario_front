@@ -1,0 +1,9 @@
+<ul class="p-4">
+  <li *ngFor="let comentario of comentarios" class="p-2 bg-white my-2 rounded-md">
+      <i class="fas fa-user mr-2 text-primary2"></i>
+    {{ comentario.comentario }}
+    <span class="block italic font-serif text-gray-600 ml-4 md:inline-block">{{
+      comentario.createdAt | date: 'short'
+    }}</span>
+  </li>
+</ul>
